@@ -1,0 +1,36 @@
+*.class
+*.log
+*.lock
+
+#Package Files
+*.jar
+*.war
+*.ear
+target/
+
+ #忽略所有 .txt结尾的文件,这样的话上传就不会被选中！
+*.txt
+#但lib.txt除外
+!lib.txt
+
+# idea
+*.idea
+*.iml
+
+
+.DS_Store
+node_modules/
+dist/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+

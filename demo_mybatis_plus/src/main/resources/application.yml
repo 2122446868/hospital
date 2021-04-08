@@ -1,0 +1,11 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://zccgrzyxm.rwlb.rds.aliyuncs.com:5432/schema?serverTimezone=GMT%2B8
+    username: zcc
+    password: 3er4#ER$
+
+#mybatis日志
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
