@@ -69,12 +69,13 @@
             @click="lockHostSet(scope.row.id, 1)"
             >取消锁定 </el-button
           >
+          
           <router-link :to="'/hospSet/edit/' + scope.row.id">
             <el-button
               type="primary"
               size="mini"
               icon="el-icon-edit"
-            ></el-button
+            >修改</el-button
           ></router-link>
              </template
         >
@@ -214,6 +215,7 @@ export default {
     hrefAdd() {
       this.$router.push({ path: "/hospSet/add" });
     },
+   
   },
 };
 </script>

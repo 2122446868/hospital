@@ -18,6 +18,7 @@ import '@/permission' // permission control
 Vue.use(ElementUI, { locale })
 
 Vue.config.productionTip = false
+// Vue.config.devtools = true;/
 
 new Vue({
   el: '#app',

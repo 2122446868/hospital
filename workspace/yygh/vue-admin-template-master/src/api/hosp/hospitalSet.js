@@ -42,12 +42,22 @@ export default {
         })
     },
     // 根据id获取医院设置
-    findByIdHospitalSet(id){
+    findByIdHospitalSet(id) {
         return request({
-            url: `/admin/hosp/hospitalSet/lockHospitalSet/${id}`,
+            url: `/admin/hosp/hospitalSet/${id}`,
             method: "get",
 
         })
+    },
+    // 修改医院设置
+    updateHospitalSet(hospitalSet) {
+        return request({
+            url: `/admin/hosp/hospitalSet/updateHospitalSet`,
+            method: "post",
+            data: hospitalSet
+
+        })
+
     }
 
 
