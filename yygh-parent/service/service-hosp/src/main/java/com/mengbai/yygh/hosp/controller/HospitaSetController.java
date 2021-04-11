@@ -42,7 +42,7 @@ public class HospitaSetController {
 
     /***
      * 查询医院设置表所有信息
-     * @return
+     * @RETURN
      */
     @ApiOperation("获取所有医院设置")
     @GetMapping("findAll")

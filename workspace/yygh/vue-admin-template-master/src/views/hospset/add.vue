@@ -37,7 +37,7 @@
 
 <script>
 // 引入接口定义的js文件
-import hospset from "@/api/hosp/hospitalSet";
+import hospset from "@/api/hospitalSet";
 export default {
   data() {
     return {
