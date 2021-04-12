@@ -35,5 +35,6 @@ public class MyBatisPlusConfig {
     @Bean
     public PaginationInterceptor paginationInterceptor() {
         return new PaginationInterceptor();
+
     }
 }
