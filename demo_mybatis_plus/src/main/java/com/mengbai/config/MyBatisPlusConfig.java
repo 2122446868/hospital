@@ -25,6 +25,7 @@ public class MyBatisPlusConfig {
      */
     @Bean
     public OptimisticLockerInterceptor optimisticLockerInterceptor() {
+        
         return new OptimisticLockerInterceptor();
     }
 

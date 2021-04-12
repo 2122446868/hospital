@@ -1,13 +1,12 @@
-export default{
-    getList(){
+export default {
+    getList() {
         console.log("获取讲师列表");
 
     },
-    save(){
+    save() {
 
         console.log("保存讲师");
     }
-    
-    
+
 
 }

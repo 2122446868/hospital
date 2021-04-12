@@ -21,9 +21,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @ApiModel(description = "Hospital")
 @Document("Hospital")
 public class Hospital extends BaseMongoEntity {
-	
+
 	private static final long serialVersionUID = 1L;
-	
+
 	@ApiModelProperty(value = "医院编号")
 	@Indexed(unique = true) //唯一索引
 	private String hoscode;

@@ -31,11 +31,15 @@ npm run build --report
 
 ## Extra
 
-If you want router permission && generate menu by user roles , you can use this branch [permission-control](https://github.com/PanJiaChen/vue-admin-template/tree/permission-control)
+If you want router permission && generate menu by user roles , you can use this
+branch [permission-control](https://github.com/PanJiaChen/vue-admin-template/tree/permission-control)
 
-This project is based on `webpack4` development. If you want to use `webpack3` development, please use this branch [webpack3](https://github.com/PanJiaChen/vue-admin-template/tree/webpack3)
+This project is based on `webpack4` development. If you want to use `webpack3` development, please use this
+branch [webpack3](https://github.com/PanJiaChen/vue-admin-template/tree/webpack3)
 
-For `typescript` version, you can use [vue-typescript-admin-template](https://github.com/Armour/vue-typescript-admin-template) (Credits: [@Armour](https://github.com/Armour))
+For `typescript` version, you can
+use [vue-typescript-admin-template](https://github.com/Armour/vue-typescript-admin-template) (
+Credits: [@Armour](https://github.com/Armour))
 
 ## Related Project
 
@@ -47,11 +51,13 @@ For `typescript` version, you can use [vue-typescript-admin-template](https://gi
 
 ### Element-Ui using cdn tutorial
 
-First find `index.html`([root directory](https://github.com/PanJiaChen/vue-admin-template/blob/element-ui-cdn/index.html))
+First
+find `index.html`([root directory](https://github.com/PanJiaChen/vue-admin-template/blob/element-ui-cdn/index.html))
 
 Import css and js of `Element`, and then import vue. Because `Element` is vue-dependent, vue must be import before it.
 
-Then find [webpack.base.conf.js](https://github.com/PanJiaChen/vue-admin-template/blob/element-ui-cdn/build/webpack.base.conf.js)
+Then
+find [webpack.base.conf.js](https://github.com/PanJiaChen/vue-admin-template/blob/element-ui-cdn/build/webpack.base.conf.js)
 Add `externals` to make webpack not package vue and element.
 
 ```
@@ -61,7 +67,8 @@ externals: {
 }
 ```
 
-Finally there is a small detail to pay attention to that if you import vue in global, you don't need to manually `Vue.use(Vuex)`, it will be automatically mounted, see
+Finally there is a small detail to pay attention to that if you import vue in global, you don't need to
+manually `Vue.use(Vuex)`, it will be automatically mounted, see
 [issue](https://github.com/vuejs/vuex/issues/731)
 
 And you can use `npm run build --report` to see the effect

@@ -28,33 +28,33 @@ import java.util.List;
 @CrossOrigin //允许跨域
 public class DictController {
 
-    @Autowired
-    private DictService dictService;
+	@Autowired
+	private DictService dictService;
 
 
-    @ApiOperation(value = "根据上级ID获取子节点数据列表")
-    @GetMapping("findByParentId/{id}")
-    public Result findByParentId(@PathVariable("id") long parentId) {
-        List<Dict> dictList = dictService.findByParentId(parentId);
-        return Result.ok(dictList);
+	@ApiOperation(value = "根据上级ID获取子节点数据列表")
+	@GetMapping("findByParentId/{id}")
+	public Result findByParentId(@PathVariable("id") long parentId) {
+		List<Dict> dictList = dictService.findByParentId(parentId);
+		return Result.ok(dictList);
 
 
-    }
+	}
 
-    @ApiOperation(value = "导出数据字典")
-    @GetMapping("exportDictData")
-    public void exportDictData(HttpServletResponse response) {
-        dictService.exportData(response);
-    }
+	@ApiOperation(value = "导出数据字典")
+	@GetMapping("exportDictData")
+	public void exportDictData(HttpServletResponse response) {
+		dictService.exportData(response);
+	}
 
-    @ApiOperation(value = "导入数据字典")
-    @PostMapping("importDictData")
-    public Result importDictData(MultipartFile file) {
-        if (!StringUtils.isEmpty(file)) {
-            dictService.importDictData(file);
-            return Result.ok();
-        }
-        return Result.fail("file为空");
+	@ApiOperation(value = "导入数据字典")
+	@PostMapping("importDictData")
+	public Result importDictData(MultipartFile file) {
+		if (!StringUtils.isEmpty(file)) {
+			dictService.importDictData(file);
+			return Result.ok();
+		}
+		return Result.fail("file为空");
 
-    }
+	}
 }

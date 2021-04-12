@@ -22,7 +22,7 @@ import java.util.List;
 @ApiModel(description = "Department")
 @Document("Department")
 public class Department extends BaseMongoEntity {
-	
+
 	private static final long serialVersionUID = 1L;
 
 	@ApiModelProperty(value = "医院编号")

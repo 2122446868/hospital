@@ -24,7 +24,7 @@ import java.util.Date;
 @ApiModel(description = "Schedule")
 @Document("Schedule")
 public class Schedule extends BaseMongoEntity {
-	
+
 	private static final long serialVersionUID = 1L;
 
 	@ApiModelProperty(value = "医院编号")

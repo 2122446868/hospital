@@ -24,7 +24,7 @@ import java.util.List;
 @ApiModel(description = "预约规则")
 @Document("BookingRule")
 public class BookingRule {
-	
+
 	@ApiModelProperty(value = "预约周期")
 	private Integer cycle;
 
@@ -44,11 +44,10 @@ public class BookingRule {
 	private List<String> rule;
 
 	/**
-	 *
 	 * @param rule
 	 */
 	public void setRule(String rule) {
-		if(!StringUtils.isEmpty(rule)) {
+		if (!StringUtils.isEmpty(rule)) {
 			this.rule = JSONArray.parseArray(rule, String.class);
 		}
 	}
