@@ -97,8 +97,8 @@ public class HttpRequestHelper {
             byte[] reqData = postdata.toString().getBytes("utf-8");
             byte[] respdata = HttpUtil.doPost(url,reqData);
             result = new String(respdata);
-            log.info(String.format("--> 应答结果：result data %1s", result));
         } catch (Exception ex) {
+            log.info(String.format("--> 应答结果：result data %1s", result));
             ex.printStackTrace();
         }
         return JSONObject.parseObject(result);

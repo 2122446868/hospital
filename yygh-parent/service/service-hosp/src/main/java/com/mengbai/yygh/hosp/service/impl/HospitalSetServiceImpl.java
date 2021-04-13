@@ -1,5 +1,6 @@
 package com.mengbai.yygh.hosp.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.mengbai.yygh.hosp.mapper.HospitalSetMapper;
 import com.mengbai.yygh.hosp.service.HospitalSetService;
@@ -18,4 +19,19 @@ import org.springframework.stereotype.Service;
 @Service
 public class HospitalSetServiceImpl extends ServiceImpl<HospitalSetMapper, HospitalSet> implements HospitalSetService {
 
+	/***
+	 * 根据传递过来的医院编码 在数据库查询签名
+	 * @param hoscode
+	 * @return
+	 */
+	@Override
+	public String findBySign(String hoscode) {
+		//封装条件
+		QueryWrapper<HospitalSet> queryWrapper = new QueryWrapper();
+		queryWrapper.eq("hoscode", hoscode);
+		//执行查询
+		HospitalSet hospitalSet = baseMapper.selectOne(queryWrapper);
+		//返回
+		return hospitalSet.getSignKey();
+	}
 }

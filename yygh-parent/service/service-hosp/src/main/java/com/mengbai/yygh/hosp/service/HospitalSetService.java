@@ -14,4 +14,10 @@ import com.mengbai.yygh.model.hosp.HospitalSet;
  * @since [产品/模块版本]
  */
 public interface HospitalSetService extends IService<HospitalSet> {
+	/***
+	 * 根据传递过来的医院编码 在数据库查询签名
+	 * @param hoscode
+	 * @return
+	 */
+	String findBySign(String hoscode);
 }

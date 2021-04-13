@@ -8,8 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.*;
 import org.springframework.data.mongodb.core.mapping.TextScore;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * @author zcc
@@ -120,4 +119,7 @@ public class MongoRepositoryApplicationTests {
 	public void delete() {
 		userRepository.deleteById("5ffbfe8197f24a07007bd6ce");
 	}
+
+
+
 }
