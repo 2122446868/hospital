@@ -1,5 +1,10 @@
 package com.mengbai.yygh.hosp.service;
 
+import com.mengbai.yygh.model.hosp.Department;
+import com.mengbai.yygh.vo.hosp.DepartmentQueryVo;
+import org.springframework.data.domain.Page;
+
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -14,4 +19,20 @@ public interface DepartmentService {
 	 * @param parameterMap
 	 */
 	void saveDepartment(Map<String, Object> parameterMap);
+
+	/***
+	 * 查询科室接口
+	 * @param page
+	 * @param limit
+	 * @param departmentQueryVo
+	 * @return
+	 */
+	Page<Department> findPageDepartment(int page, int limit, DepartmentQueryVo departmentQueryVo);
+
+	/***
+	 * 删除科室
+	 * @param hoscode
+	 * @param depcode
+	 */
+	void remove(String hoscode, String depcode);
 }
