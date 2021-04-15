@@ -4,11 +4,14 @@ import com.alibaba.fastjson.JSONObject;
 import com.mengbai.yygh.hosp.repository.HospitalRepository;
 import com.mengbai.yygh.hosp.service.HospitalService;
 import com.mengbai.yygh.model.hosp.Hospital;
+import com.mengbai.yygh.vo.hosp.HospitalQueryVo;
 import com.mysql.jdbc.log.Log;
 import com.mysql.jdbc.log.LogFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -71,5 +74,24 @@ public class HospitalServiceImpl implements HospitalService {
 	public Hospital getByHoscode(String hoscode) {
 		Hospital hospitalByHoscode = hospitalRepository.getHospitalByHoscode(hoscode);
 		return hospitalByHoscode;
+	}
+
+	/***
+	 * 医院列表（条件查询分页）
+	 * @param page
+	 * @param limit
+	 * @param hospitalQueryVo
+	 * @return
+	 */
+	@Override
+	public Page<Hospital> selectHospPage(Integer page, Integer limit, HospitalQueryVo hospitalQueryVo) {
+		Pageable pageable = PageRequest.of(page - 1, limit);
+		Hospital hospital = new Hospital();
+		BeanUtils.copyProperties(hospitalQueryVo, hospital);
+		hospital.setIsDeleted(0);
+		ExampleMatcher matcher = ExampleMatcher.matching().withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING).withIgnoreCase(true);
+		Example<Hospital> example = Example.of(hospital, matcher);
+		Page<Hospital> all = hospitalRepository.findAll(example, pageable);
+		return all;
 	}
 }

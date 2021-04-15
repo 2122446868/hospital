@@ -1,6 +1,7 @@
 package com.mengbai.yygh.cmn.service.impl;
 
 import com.alibaba.excel.EasyExcel;
+import com.alibaba.excel.util.StringUtils;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.mengbai.yygh.cmn.listener.DictListener;
@@ -8,6 +9,7 @@ import com.mengbai.yygh.cmn.mapper.DictMapper;
 import com.mengbai.yygh.cmn.service.DictService;
 import com.mengbai.yygh.model.cmn.Dict;
 import com.mengbai.yygh.vo.cmn.DictEeVo;
+import org.apache.poi.util.StringUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.DataInput;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -109,6 +112,32 @@ public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements Di
 		}
 
 
+	}
+
+	/***
+	 * 根据dictCode和value查询
+	 * @param dictCode
+	 * @param value
+	 * @return
+	 */
+	@Override
+	public String getDictName(String dictCode, String value) {
+		// 如果dictCode 根据value查询
+		if (StringUtils.isEmpty(dictCode)) {
+			QueryWrapper<Dict> wrapper = new QueryWrapper<>();
+			wrapper.eq("value", value);
+			Dict dict = baseMapper.selectOne(wrapper);
+			return dict.getName();
+		} else { //如果dictCode不为空 根据dictCode和value查询
+			QueryWrapper<Dict> wrapper = new QueryWrapper<>();
+			wrapper.eq("dict_code", dictCode);
+			Dict codeDict = baseMapper.selectOne(wrapper);
+			Long parentId = codeDict.getId();
+			Dict finalDict = baseMapper.selectOne(new QueryWrapper<Dict>().eq("parent_id", parentId).eq("value", value));
+
+
+			return finalDict.getName();
+		}
 	}
 
 	/***

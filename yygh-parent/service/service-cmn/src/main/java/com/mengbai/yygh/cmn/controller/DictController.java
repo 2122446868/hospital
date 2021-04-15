@@ -57,4 +57,21 @@ public class DictController {
 		return Result.fail("file为空");
 
 	}
+
+
+	@ApiOperation(value = "根据dictCode和value查询")
+	@GetMapping("getName/{dictCode}/{value}")
+	public String getName(@PathVariable("dictCode") String dictCode,
+	                      @PathVariable("value") String value) {
+		String dictName = dictService.getDictName(dictCode, value);
+		return dictName;
+	}
+
+	@ApiOperation("根据value查询")
+	@GetMapping("getName/{value}")
+	public String getName(@PathVariable("value") String value) {
+		String dictName = dictService.getDictName("",value);
+		return dictName;
+
+	}
 }

@@ -1,6 +1,8 @@
 package com.mengbai.yygh.hosp.service;
 
 import com.mengbai.yygh.model.hosp.Hospital;
+import com.mengbai.yygh.vo.hosp.HospitalQueryVo;
+import org.springframework.data.domain.Page;
 
 import java.util.Map;
 
@@ -22,4 +24,13 @@ public interface HospitalService {
 	 根据医院编号查询
 	 */
 	Hospital getByHoscode(String hoscode);
+
+	/***
+	 * 医院列表（条件查询分页）
+	 * @param page
+	 * @param limit
+	 * @param hospitalQueryVo
+	 * @return
+	 */
+	Page<Hospital> selectHospPage(Integer page, Integer limit, HospitalQueryVo hospitalQueryVo);
 }
