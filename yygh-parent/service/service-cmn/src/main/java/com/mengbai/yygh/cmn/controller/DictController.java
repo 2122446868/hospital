@@ -70,8 +70,17 @@ public class DictController {
 	@ApiOperation("根据value查询")
 	@GetMapping("getName/{value}")
 	public String getName(@PathVariable("value") String value) {
-		String dictName = dictService.getDictName("",value);
+		String dictName = dictService.getDictName("", value);
 		return dictName;
 
 	}
+
+	@ApiOperation(value = "根据dictCode获取下级子节点")
+	@GetMapping("findByDictCode/{dictCode}")
+	public Result findByDictCode(@PathVariable("dictCode") String dictCode) {
+		List<Dict> dictList = dictService.findByDictCode(dictCode);
+		return Result.ok(dictList);
+
+	}
+
 }
