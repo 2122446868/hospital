@@ -122,7 +122,7 @@ public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements Di
 	 */
 	@Override
 	public String getDictName(String dictCode, String value) {
-		// 如果dictCode 根据value查询
+		// 如果dictCode为空 根据value查询
 		if (StringUtils.isEmpty(dictCode)) {
 			QueryWrapper<Dict> wrapper = new QueryWrapper<>();
 			wrapper.eq("value", value);
