@@ -1,6 +1,8 @@
 package com.mengbai.yygh.hosp.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
+import com.mengbai.yygh.cmn.client.DictFeignClient;
+import com.mengbai.yygh.enums.DictEnum;
 import com.mengbai.yygh.hosp.repository.HospitalRepository;
 import com.mengbai.yygh.hosp.service.HospitalService;
 import com.mengbai.yygh.model.hosp.Hospital;
@@ -14,8 +16,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * @author zcc
@@ -30,6 +35,10 @@ public class HospitalServiceImpl implements HospitalService {
 
 	@Autowired
 	private HospitalRepository hospitalRepository;
+
+	@Resource
+	private DictFeignClient dictFeignClient;
+
 
 	/***
 	 * 上传医院信息
@@ -85,13 +94,73 @@ public class HospitalServiceImpl implements HospitalService {
 	 */
 	@Override
 	public Page<Hospital> selectHospPage(Integer page, Integer limit, HospitalQueryVo hospitalQueryVo) {
+		//分页
 		Pageable pageable = PageRequest.of(page - 1, limit);
+
 		Hospital hospital = new Hospital();
 		BeanUtils.copyProperties(hospitalQueryVo, hospital);
+
 		hospital.setIsDeleted(0);
+		//条件封装
 		ExampleMatcher matcher = ExampleMatcher.matching().withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING).withIgnoreCase(true);
 		Example<Hospital> example = Example.of(hospital, matcher);
-		Page<Hospital> all = hospitalRepository.findAll(example, pageable);
-		return all;
+		//执行查询
+		Page<Hospital> hospitalPage = hospitalRepository.findAll(example, pageable);
+
+		// 获取查询list集合，遍历进行医院等级封装
+		hospitalPage.getContent().stream().forEach(item -> {
+			this.packHospital(item);
+		});
+		return hospitalPage;
+	}
+
+	/***
+	 * 更新医院上线状态
+	 * @param id
+	 * @param status
+	 */
+	@Override
+	public void updatStatus(String id, Integer status) {
+		//根据ID查询医院信息
+		Hospital hospital = hospitalRepository.findById(id).get();
+		System.out.println("修改前：" + hospital.getStatus());
+		//设置修改的值
+		hospital.setStatus(status);
+		hospital.setUpdateTime(new Date());
+		//保存
+		Hospital save = hospitalRepository.save(hospital);
+		System.out.println("修改后" + save.getStatus());
+	}
+
+	/***
+	 * 医院详情
+	 * @param id
+	 * @return
+	 */
+	@Override
+	public Map<String, Object> show(String id) {
+		Map<String, Object> resultMap = new HashMap<>();
+
+		Hospital hospital = this.packHospital(hospitalRepository.findById(id).get());
+		//医院基本信息（包含医院等级）
+		resultMap.put("hospital", hospital);
+		//单独处理更直观
+		resultMap.put("bookingRule", hospital.getBookingRule());
+		//不需要重复返回
+		hospital.setBookingRule(null);
+
+		return resultMap;
+	}
+
+
+	/***
+	 * 获取查询list集合，遍历进行医院等级封装
+	 * @param hospital
+	 * @return
+	 */
+	private Hospital packHospital(Hospital hospital) {
+		String hostypeString = dictFeignClient.getName(DictEnum.HOSTYPE.getDictCode(), hospital.getHostype());
+		hospital.getParam().put("hostypeString", hostypeString);
+		return hospital;
 	}
 }

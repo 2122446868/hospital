@@ -1,7 +1,6 @@
 package com.mengbai.yygh.hosp.config;
 
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
-import jdk.internal.util.xml.impl.ReaderUTF8;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

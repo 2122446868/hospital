@@ -15,7 +15,7 @@
           />
                   </el-select
         >
-            </el-form-item
+         </el-form-item
       >
 
           <el-form-item>
@@ -66,7 +66,7 @@
       >
 
           <el-table-column label="医院logo">
-                <template slot-scope="scope">
+          <template slot-scope="scope">
                   <img
             :src="'data:image/jpeg;base64,' + scope.row.logoData"
             width="80"
@@ -78,8 +78,8 @@
 
           <el-table-column prop="hosname" label="医院名称" />
           <el-table-column prop="param.hostypeString" label="等级" width="90" />
-          <el-table-column prop="param.fullAddress" label="详情地址" />
-          <el-table-column label="状态" width="80">
+          <el-table-column prop="address" label="详情地址" />
+          <el-table-column label="状态" width="200">
                 <template slot-scope="scope">
                           {{
             scope.row.status === 0 ? "未上线" : "已上线"
@@ -91,6 +91,28 @@
           <el-table-column prop="createTime" label="创建时间" />
 
           <el-table-column label="操作" width="230" align="center">
+        <template slot-scope="scope">
+                  <el-button
+            v-if="scope.row.status == 1"
+            type="primary"
+            size="mini"
+            @click="updateStatus(scope.row.id, 0)"
+            >下线</el-button
+          >
+                  <el-button
+            v-if="scope.row.status == 0"
+            type="danger"
+            size="mini"
+            @click="updateStatus(scope.row.id, 1)"
+            >上线</el-button
+          >
+
+          <router-link :to="'/hospSet/hosp/show/' + scope.row.id">
+                <el-button type="primary" size="mini">查看</el-button>
+          </router-link>
+              </template
+        >
+
             </el-table-column
       >
     </el-table>
@@ -122,7 +144,6 @@ export default {
       searchObj: {}, // 查询表单对象
       provinceList: [],
       cityList: [],
-      districtList: [],
     };
   }, // 生命周期函数：内存准备完毕，页面尚未渲染
 
@@ -130,10 +151,6 @@ export default {
     console.log("list created......");
     this.fetchData();
     this.findAllProvince();
-
-    // hospitalApi.findByDictCode("Province").then((response) => {
-    //   this.provinceList = response.data;
-    // });
   },
 
   methods: {
@@ -150,34 +167,36 @@ export default {
           this.listLoading = false;
         });
     },
-    // 查询所有省
+    // 查询所有的省
     findAllProvince() {
       hospitalApi.findByDictCode("Province").then((response) => {
         this.provinceList = response.data;
       });
     },
-// 点击某个省 显示市（联动）
-    provinceChanged() {
-      this.cityList = [];
-      this.searchObj.cityCode = null;
-      hospitalApi
-        .findChildId(this.searchObj.provinceCode)
-        .then((response) => {
-          this.cityList = response.data;
-        });
-    },
-    //  当页码发生改变的时候
+
+    // 当页码发生改变的时候
     changeSize(size) {
       console.log(size);
       this.limit = size;
       this.fetchData(1);
-    }, // 重置查询表单
+    },
+    // 点击某个省，显示里面的市（联动）
+    provinceChanged() {
+      this.cityList = [];
+      this.searchObj.cityCode = null;
+      hospitalApi.findChildId(this.searchObj.provinceCode).then((response) => {
+        this.cityList = response.data;
+      });
+    },
 
-    // resetData() {
-    //   console.log("重置查询表单");
-    //   this.searchObj = {};
-    //   this.fetchData();
-    // },
+    // 更新状态
+    updateStatus(id, status) {
+      hospitalApi.updateStatus(id, status).then((response) => {
+        console.log("更新状态");
+        // 刷新页面
+        this.fetchData(this.page);
+      });
+    },
   },
 };
 </script>

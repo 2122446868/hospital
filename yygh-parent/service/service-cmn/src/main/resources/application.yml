@@ -4,6 +4,10 @@ server:
 
 
 spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
   application:
     #服务名
     name: service-cmn
@@ -16,13 +20,16 @@ spring:
     password: admin
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://112.124.24.3:7001/yygh_cmn?characterEncoding=utf-8&useSSL=false
+    hikari:
+      max-lifetime: 500000
+
 
     #返回json的全局时间格式
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
 
-#    redis配置
+  #    redis配置
   redis:
     host: 112.124.24.3
     port: 7002

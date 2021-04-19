@@ -12,6 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
+import java.util.Map;
+
 /**
  * HospitalController
  * <功能描述>
@@ -24,11 +27,10 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin
 @RequestMapping("/admin/hosp/hospital")
 public class HospitalController {
-	@Autowired
+
+	@Resource
 	private HospitalService hospitalService;
 
-	@Autowired
-	private DictFeignClient dictFeignClient;
 
 	@ApiOperation(value = "医院列表（条件查询分页）")
 	@GetMapping("list/{page}/{limit}")
@@ -38,23 +40,25 @@ public class HospitalController {
 
 		Page<Hospital> hospitalPage = hospitalService.selectHospPage(page, limit, HospitalService);
 
-
-		hospitalPage.getContent().stream().forEach(item -> {
-			this.packHospital(item);
-		});
 		return Result.ok(hospitalPage);
 
 	}
 
-	/***
-	 * 获取查询list集合，遍历进行医院等级封装
-	 * @param hospital
-	 * @return
-	 */
-	private Hospital packHospital(Hospital hospital) {
-		String hostypeString = dictFeignClient.getName(DictEnum.HOSTYPE.getDictCode(), hospital.getHostype());
-		hospital.getParam().put("hostypeString", hostypeString);
-		return hospital;
+	@ApiOperation(value = "更新上线状态")
+	@GetMapping("updateStatus/{id}/{status}")
+	public Result lock(@PathVariable("id") String id, @PathVariable("status") Integer status) {
+		hospitalService.updatStatus(id, status);
+		return Result.ok();
+
+	}
+
+	@ApiOperation(value = "医院详情信息")
+	@GetMapping("show/{id}")
+	public Result show(@PathVariable("id") String id) {
+		Map<String, Object> map = hospitalService.show(id);
+
+		return Result.ok(map);
+
 	}
 
 

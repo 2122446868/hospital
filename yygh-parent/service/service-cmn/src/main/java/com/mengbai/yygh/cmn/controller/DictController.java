@@ -34,8 +34,8 @@ public class DictController {
 
 	@ApiOperation(value = "根据上级ID获取子节点数据列表")
 	@GetMapping("findByParentId/{id}")
-	public Result findByParentId(@PathVariable("id") long parentId) {
-		List<Dict> dictList = dictService.findByParentId(parentId);
+	public Result findByParentId(@PathVariable("id") long id) {
+		List<Dict> dictList = dictService.findByParentId(id);
 		return Result.ok(dictList);
 
 

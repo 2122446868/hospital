@@ -67,6 +67,12 @@ export const constantRouterMap = [
         name: '医院列表',
         component: () => import('@/views/hosp/list'),
         meta: {title: '医院列表', icon: 'tree', menuShow: true}
+      },
+      {
+        path: 'hosp/show/:id',
+        name: '医院详情',
+        component: () => import('@/views/hosp/show'),
+        meta: {title: '医院详情', icon: 'tree', menuShow: false}
       }
       // {
       //   path: 'hospitalSet/edit/:id',
