@@ -22,8 +22,8 @@ import Layout from '../views/layout/Layout'
   }
  **/
 export const constantRouterMap = [
-  {path: '/login', component: () => import('@/views/login/index'), hidden: true},
-  {path: '/404', component: () => import('@/views/404'), hidden: true},
+  { path: '/login', component: () => import('@/views/login/index'), hidden: true },
+  { path: '/404', component: () => import('@/views/404'), hidden: true },
 
   {
     path: '/',
@@ -42,38 +42,45 @@ export const constantRouterMap = [
     component: Layout,
     redirect: '/hospSet/table',
     name: '医院设置管理',
-    meta: {title: '医院设置管理', icon: 'example', menuShow: false},
+    meta: { title: '医院设置管理', icon: 'example', menuShow: false },
     children: [
       {
         path: 'list',
         name: '医院设置列表',
         component: () => import('@/views/hospset/list'),
-        meta: {title: '医院设置列表', icon: 'table'}
+        meta: { title: '医院设置列表', icon: 'table' }
       },
       {
         path: 'add',
         name: '医院设置添加',
         component: () => import('@/views/hospset/add'),
-        meta: {title: '医院设置添加', icon: 'tree', menuShow: false}
+        meta: { title: '医院设置添加', icon: 'tree', menuShow: false }
       },
       {
         path: 'edit/:id',
         name: '医院设置修改',
         component: () => import('@/views/hospset/add'),
-        meta: {title: '医院设置修改', icon: 'tree', menuShow: false}
+        meta: { title: '医院设置修改', icon: 'tree', menuShow: false }
       },
       {
         path: 'hosp/list',
         name: '医院列表',
         component: () => import('@/views/hosp/list'),
-        meta: {title: '医院列表', icon: 'tree', menuShow: true}
+        meta: { title: '医院列表', icon: 'tree', menuShow: true }
       },
       {
         path: 'hosp/show/:id',
         name: '医院详情',
         component: () => import('@/views/hosp/show'),
-        meta: {title: '医院详情', icon: 'tree', menuShow: false}
+        meta: { title: '医院详情', icon: 'tree', menuShow: false }
+      }, {
+        path: 'hospital/schedule/:hoscode',
+        name: '排班',
+        component: () => import('@/views/hosp/schedule'),
+        meta: { title: '排班', icon: 'tree', menuShow: false }
       }
+
+
       // {
       //   path: 'hospitalSet/edit/:id',
       //   name: '编辑',
@@ -88,14 +95,14 @@ export const constantRouterMap = [
     component: Layout,
     redirect: '/cmn/list',
     name: '数据管理',
-    meta: {title: '数据管理', icon: 'example'},
+    meta: { title: '数据管理', icon: 'example' },
     alwaysShow: true,
     children: [
       {
         path: 'list',
         name: '数据字典',
         component: () => import('@/views/dict/list'),
-        meta: {title: '数据字典', icon: 'table'}
+        meta: { title: '数据字典', icon: 'table' }
       }
     ]
   }
@@ -104,19 +111,19 @@ export const constantRouterMap = [
     component: Layout,
     redirect: '/example/table',
     name: 'Example',
-    meta: {title: 'Example', icon: 'example'},
+    meta: { title: 'Example', icon: 'example' },
     children: [
       {
         path: 'table',
         name: 'Table',
         component: () => import('@/views/table/index'),
-        meta: {title: 'Table', icon: 'table'}
+        meta: { title: 'Table', icon: 'table' }
       },
       {
         path: 'tree',
         name: 'Tree',
         component: () => import('@/views/tree/index'),
-        meta: {title: 'Tree', icon: 'tree'}
+        meta: { title: 'Tree', icon: 'tree' }
       }
     ]
   },
@@ -129,7 +136,7 @@ export const constantRouterMap = [
         path: 'index',
         name: 'Form',
         component: () => import('@/views/form/index'),
-        meta: {title: 'Form', icon: 'form'}
+        meta: { title: 'Form', icon: 'form' }
       }
     ]
   },
@@ -148,31 +155,31 @@ export const constantRouterMap = [
         path: 'menu1',
         component: () => import('@/views/nested/menu1/index'), // Parent router-view
         name: 'Menu1',
-        meta: {title: 'Menu1'},
+        meta: { title: 'Menu1' },
         children: [
           {
             path: 'menu1-1',
             component: () => import('@/views/nested/menu1/menu1-1'),
             name: 'Menu1-1',
-            meta: {title: 'Menu1-1'}
+            meta: { title: 'Menu1-1' }
           },
           {
             path: 'menu1-2',
             component: () => import('@/views/nested/menu1/menu1-2'),
             name: 'Menu1-2',
-            meta: {title: 'Menu1-2'},
+            meta: { title: 'Menu1-2' },
             children: [
               {
                 path: 'menu1-2-1',
                 component: () => import('@/views/nested/menu1/menu1-2/menu1-2-1'),
                 name: 'Menu1-2-1',
-                meta: {title: 'Menu1-2-1'}
+                meta: { title: 'Menu1-2-1' }
               },
               {
                 path: 'menu1-2-2',
                 component: () => import('@/views/nested/menu1/menu1-2/menu1-2-2'),
                 name: 'Menu1-2-2',
-                meta: {title: 'Menu1-2-2'}
+                meta: { title: 'Menu1-2-2' }
               }
             ]
           },
@@ -180,14 +187,14 @@ export const constantRouterMap = [
             path: 'menu1-3',
             component: () => import('@/views/nested/menu1/menu1-3'),
             name: 'Menu1-3',
-            meta: {title: 'Menu1-3'}
+            meta: { title: 'Menu1-3' }
           }
         ]
       },
       {
         path: 'menu2',
         component: () => import('@/views/nested/menu2/index'),
-        meta: {title: 'menu2'}
+        meta: { title: 'menu2' }
       }
     ]
   },
@@ -198,7 +205,7 @@ export const constantRouterMap = [
     children: [
       {
         path: 'https://panjiachen.github.io/vue-element-admin-site/#/',
-        meta: {title: 'External Link', icon: 'link'}
+        meta: { title: 'External Link', icon: 'link' }
       }
     ]
   },
@@ -208,6 +215,6 @@ export const constantRouterMap = [
 
 export default new Router({
   // mode: 'history', //后端支持可开
-  scrollBehavior: () => ({y: 0}),
+  scrollBehavior: () => ({ y: 0 }),
   routes: constantRouterMap
 })

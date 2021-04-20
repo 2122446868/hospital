@@ -17,7 +17,7 @@ import java.util.Map;
 
 /**
  * HospitalController
- * <功能描述>
+ * <医院管理接口>
  *
  * @author mb
  * @version [版本号, 2021/4/15/14:22]

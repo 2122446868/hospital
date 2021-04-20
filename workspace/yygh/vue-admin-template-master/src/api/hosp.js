@@ -33,17 +33,24 @@ export default {
     })
   },
   // 更新状态
-  updateStatus(id, status) {
-        return request({
-          url: `/admin/hosp/hospital/updateStatus/${id}/${status}`,
-          method: 'get'
+  updateStatus(id, status) {
+    return request({
+      url: `/admin/hosp/hospital/updateStatus/${id}/${status}`,
+      method: 'get'
     })
   },
   // 查看医院详情
-  show(id) {
-        return request({
-          url: `/admin/hosp/hospital/show/${id}`,
-          method: 'get'
+  show(id) {
+    return request({
+      url: `/admin/hosp/hospital/show/${id}`,
+      method: 'get'
+    })
+  },
+  // 查询医院所有科室列表
+  getDepartList(hoscode) {
+    return request({
+      url: `/admin/host/department/getDepartList/${hoscode}`,
+      method: 'get'
     })
   }
 

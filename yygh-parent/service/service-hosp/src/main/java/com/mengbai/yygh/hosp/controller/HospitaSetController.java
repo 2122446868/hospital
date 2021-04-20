@@ -23,7 +23,7 @@ import java.util.RandomAccess;
 
 /**
  * HospitaSetController
- * <功能详细描述>
+ * <医院设置管理>
  *
  * @author 赵长春
  * @version [版本号, 2021/4/6 13:59]

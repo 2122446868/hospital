@@ -2,6 +2,7 @@ package com.mengbai.yygh.hosp.service;
 
 import com.mengbai.yygh.model.hosp.Department;
 import com.mengbai.yygh.vo.hosp.DepartmentQueryVo;
+import com.mengbai.yygh.vo.hosp.DepartmentVo;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
@@ -35,4 +36,11 @@ public interface DepartmentService {
 	 * @param depcode
 	 */
 	void remove(String hoscode, String depcode);
+
+	/***
+	 * 据医院编号，查询医院所有科室列表
+	 * @param hoscode
+	 * @return
+	 */
+	List<DepartmentVo> findDeptTree(String hoscode);
 }
