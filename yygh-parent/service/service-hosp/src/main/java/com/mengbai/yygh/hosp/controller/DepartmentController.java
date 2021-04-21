@@ -7,6 +7,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
+
 import javax.annotation.Resource;
 import java.util.List;
 
@@ -19,8 +20,8 @@ import java.util.List;
  */
 @Api(tags = "排班管理实现")
 @RestController
-@RequestMapping("/admin/host/department")
 @CrossOrigin
+@RequestMapping("/admin/hosp/department")
 public class DepartmentController {
 
 	@Resource
@@ -41,3 +42,4 @@ public class DepartmentController {
 
 
 }
+

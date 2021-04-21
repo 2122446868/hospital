@@ -74,7 +74,7 @@ export const constantRouterMap = [
         component: () => import('@/views/hosp/show'),
         meta: { title: '医院详情', icon: 'tree', menuShow: false }
       }, {
-        path: 'hospital/schedule/:hoscode',
+        path: 'hosp/schedule/:hoscode',
         name: '排班',
         component: () => import('@/views/hosp/schedule'),
         meta: { title: '排班', icon: 'tree', menuShow: false }

@@ -43,4 +43,6 @@ public interface DepartmentService {
 	 * @return
 	 */
 	List<DepartmentVo> findDeptTree(String hoscode);
+
+	Object getDepName(String hoscode, String depcode);
 }

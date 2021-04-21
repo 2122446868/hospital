@@ -111,10 +111,11 @@
                 <el-button type="primary" size="mini">查看</el-button>
           </router-link>
 
-          <router-link :to="'/hospSet/hosp/schedule/'+scope.row.hoscode">
-    <el-button type="primary" size="mini">排班</el-button>
-</router-link> 
-              </template
+          <router-link :to="'/hospSet/hosp/schedule/' + scope.row.hoscode">
+                <el-button type="primary" size="mini"
+              >排班</el-button
+            > </router-link
+          >      </template
         >
 
             </el-table-column
