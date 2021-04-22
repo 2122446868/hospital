@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 /**
  * HospitalApiController
  * <功能描述>
@@ -37,6 +39,15 @@ public class HospitalApiController {
 		Page<Hospital> hospitalPage = hospitalService.selectHospPage(page, limit, hospitalQueryVo);
 
 		return Result.ok(hospitalPage);
+	}
+
+
+	@ApiOperation(value = "根据医院名称获取医院列表")
+	@GetMapping("findByHosname/{hosname}")
+	public Result findByHosname(@PathVariable String hosname) {
+		List<Hospital> list =  hospitalService.findByHosname(hosname);
+		return  Result.ok(list);
+
 	}
 
 }

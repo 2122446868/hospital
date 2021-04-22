@@ -33,7 +33,7 @@ import java.util.RandomAccess;
 @Api(tags = "医院设置管理")
 @RestController
 @RequestMapping("/admin/hosp/hospitalSet")
-@CrossOrigin //允许跨域
+// @CrossOrigin //允许跨域
 public class HospitaSetController {
 
     @Autowired

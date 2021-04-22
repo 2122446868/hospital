@@ -17,10 +17,7 @@ import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * @author zcc
@@ -159,6 +156,16 @@ public class HospitalServiceImpl implements HospitalService {
 			return hospital.getHosname();
 		}
 		return "";
+	}
+
+	/***
+	 * 根据医院名称获取医院列表
+	 * @param hosname
+	 * @return
+	 */
+	@Override
+	public List<Hospital> findByHosname(String hosname) {
+		return hospitalRepository.findHospitalByHosnameLike(hosname);
 	}
 
 

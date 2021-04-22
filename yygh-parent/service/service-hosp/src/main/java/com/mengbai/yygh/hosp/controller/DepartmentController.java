@@ -20,7 +20,7 @@ import java.util.List;
  */
 @Api(tags = "排班管理实现")
 @RestController
-@CrossOrigin
+// @CrossOrigin
 @RequestMapping("/admin/hosp/department")
 public class DepartmentController {
 
