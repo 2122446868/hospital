@@ -22,6 +22,7 @@
             :fetch-suggestions="querySearchAsync"
             placeholder="点击输入医院名称"
             @select="handleSelect"
+            
           >
                     <span
               slot="suffix"
@@ -107,14 +108,11 @@
                   <div class="bottom-container">
                                 
                     <div class="icon-wrapper">
-                                    <span class="iconfont"></span
-                      >{{ item.param.hostypeString }}             
+                    <span class="iconfont"></span>{{ item.param.hostypeString }}             
                     </div>
                               
                     <div class="icon-wrapper">
-                                <span class="iconfont"></span>每天{{
-                        item.bookingRule.releaseTime
-                      }}放号           
+                    <span class="iconfont"></span>每天{{item.bookingRule.releaseTime}}放号           
                     </div>
                               
                   </div>
@@ -274,120 +272,108 @@
       
   </div>
 </template>
-
 <script>
-import hospApi from '@/api/hosp'
-import dictApi from '@/api/dict'
+import hospApi from "@/api/hosp";
+import dictApi from "@/api/dict";
 
 export default {
   //服务端渲染异步，显示医院列表
-  asyncData({params,error}){
+  asyncData({ params, error }) {
+    return hospApi.getPageList(1, 10, null).then((response) => {
+      return {
+        list: response.data.content,
+        // 总页数
+        pages: response.data.totalPages,
+      };
+    });
+  },
+  data() {
+    return {
+      searchObj: {},
+      page: 1,
+      limit: 10,
 
-   //调用
-    return hospApi.getPageList(1,10,null)
-      .then(response => {
-        return {
-          list: response.data.content,
-          pages: response.data.totalPages
-        }
-      })
-  },
-  data() {
-    return {
-      searchObj: {},
-      page: 1,
-      limit: 10,
+      hosname: "", //医院名称
+      hostypeList: [], //医院等级集合
+      districtList: [], //地区集合
+      hostypeActiveIndex: 0,
+      provinceActiveIndex: 0,
+      state: "", //搜索框显示内容
+    };
+  },
+  created() {
+    this.init();
+  },
+  methods: {
+    //查询医院等级列表 和 所有地区列表
+    init() {
+      //查询医院等级列表
+      dictApi.findByDictCode("Hostype").then((response) => {
+        //hostypeList清空
+        this.hostypeList = []; //向hostypeList添加全部值
+        this.hostypeList.push({ name: "全部", value: "" });
+        //把接口返回数据，添加到hostypeList
+        for (let i = 0; i < response.data.length; i++) {
+          this.hostypeList.push(response.data[i]);
+        }
+      });
+      // 查询地区数据
+      dictApi.findByDictCode("Beijin").then((response) => {
+        this.districtList = [];
+        this.districtList.push({ name: "全部", value: "" });
+        for (let i in response.data) {
+          this.districtList.push(response.data[i]);
+        }
+      });
+    },
+    // 查询医院列表
+    getList() {
+      hospApi
+        .getPageList(this.page, this.limit, this.searchObj)
+        .then((response) => {
+          for (let i in response.data.content) {
+            this.list.push(response.data.content[i]);
+          }
+          this.page = response.data.totalPages;
+        });
+    },
+    // 根据医院等级查询
+    hostypeSelect(hostype, index) {
+      //准备数据
+      this.list = [];
+      this.page = 1;
+      this.hostypeActiveIndex = index;
+      this.searchObj.hostype = hostype;
+      //调用查询医院列表方法
+      this.getList();
+    },
+    //根据地区查询医院
+    districtSelect(districtCode, index) {
+      this.list = [];
+      this.page = 1;
+      this.provinceActiveIndex = index;
+      this.searchObj.districtCode = districtCode;
+      this.getList();
+    },
+    //在输入框输入值，弹出下拉框，显示相关内容
+    querySearchAsync(queryString, cb) {
+      this.searchObj = [];
+      if (queryString == "") return;
+      hospApi.getByHosname(queryString).then((response) => {
+        for (let i = 0, len = response.data.length; i < len; i++) {
+          response.data[i].value = response.data[i].hosname;
+        }
+        cb(response.data);
+      });
+    },
+    //在下拉框选择某一个内容，执行下面方法，跳转到详情页面中
+    handleSelect(item) {
+      window.location.href = "/hospital/" + item.hoscode;
+    }, //点击某个医院名称，跳转到详情页面中
 
-      hosname: '', //医院名称
-      hostypeList: [], //医院等级集合
-      districtList: [], //地区集合
-
-      hostypeActiveIndex: 0,
-      provinceActiveIndex: 0
-    }
-  },
-  created() {
-    this.init()
-  },
-  methods:{
-    //查询医院等级列表 和 所有地区列表
-    init() {
-      //查询医院等级列表
-      dictApi.findByDictCode('Hostype')
-        .then(response => {
-          //hostypeList清空
-          this.hostypeList = []
-          //向hostypeList添加全部值
-          this.hostypeList.push({"name":"全部","value":""})
-          //把接口返回数据，添加到hostypeList
-          for(var i=0;i<response.data.length;i++) {
-              this.hostypeList.push(response.data[i])
-          }
-      })
-
-      //查询地区数据
-      dictApi.findByDictCode('Beijing')
-        .then(response => {
-          this.districtList = []
-          this.districtList.push({"name":"全部","value":""})
-          for(let i in response.data) {
-            this.districtList.push(response.data[i])
-          }
-        })
-    },
-
-    //查询医院列表
-    getList() {
-      hospApi.getPageList(this.page,this.limit,this.searchObj)
-        .then(response => {
-          for(let i in response.data.content) {
-            this.list.push(response.data.content[i])
-          }
-          this.page = response.data.totalPages
-        })
-    },
-
-    //根据医院等级查询
-    hostypeSelect(hostype,index) {
-      //准备数据
-      this.list = []
-      this.page = 1
-      this.hostypeActiveIndex = index
-      this.searchObj.hostype = hostype
-      //调用查询医院列表方法
-      this.getList()
-},
-
-    //根据地区查询医院
-    districtSelect(districtCode, index) {
-      this.list = []
-      this.page = 1
-      this.provinceActiveIndex = index
-      this.searchObj.districtCode = districtCode
-      this.getList();
-},
-
-    //在输入框输入值，弹出下拉框，显示相关内容
-    querySearchAsync(queryString, cb) {
-      this.searchObj = []
-      if(queryString == '') return
-      hospApi.getByHosname(queryString).then(response => {
-        for (let i = 0, len = response.data.length; i <len; i++) {
-          response.data[i].value = response.data[i].hosname
-        }
-        cb(response.data)
-      })
-},
-
-    //在下拉框选择某一个内容，执行下面方法，跳转到详情页面中
-    handleSelect(item) {
-      window.location.href = '/hospital/' + item.hoscode
-},
-
-    //点击某个医院名称，跳转到详情页面中
-    show(hoscode) {
-      window.location.href = '/hospital/' + hoscode
-    }
-  }
-}
+    show(hoscode) {
+      window.location.href = "/hosp/" + hoscode;
+    },
+  },
+};
 </script>
