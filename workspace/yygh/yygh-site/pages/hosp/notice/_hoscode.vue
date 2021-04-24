@@ -155,3 +155,19 @@ export default {
   },
 };
 </script>
+
+<style>
+.hospital-datil .info-wrapper {
+  width: 100%;
+  padding-left: 0%;
+  padding-top: 0%;
+  margin-top: 0%;
+  flex-direction: inherit;
+}
+.hospital-datil .info-wrapper .text {
+  font-size: 14px;
+}
+.hospital-datil .content-wrapper p {
+  text-indent: 0;
+}
+</style>

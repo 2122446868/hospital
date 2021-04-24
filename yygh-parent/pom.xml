@@ -10,6 +10,7 @@
         <module>service</module>
         <module>service_client</module>
         <module>server-gateway</module>
+        <module>service/untitled</module>
 
     </modules>
     <parent>
