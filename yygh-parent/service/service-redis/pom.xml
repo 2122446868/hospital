@@ -9,36 +9,17 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>service-msm</artifactId>
+    <artifactId>service-redis</artifactId>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
-
     <dependencies>
-        <dependency>
-            <groupId>com.mengbai.yygh</groupId>
-            <artifactId>common-util</artifactId>
-            <version>1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.mengbai.yygh</groupId>
-            <artifactId>service_client</artifactId>
-            <version>1.0</version>
-        </dependency>
-
-
-        <!-- 引入 springboot&redis 整合场景 -->
+        <!-- 整合 Redis -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.mengbai.yygh</groupId>
-            <artifactId>service_cmn_client</artifactId>
-            <version>1.0</version>
-            <scope>compile</scope>
         </dependency>
     </dependencies>
 </project>

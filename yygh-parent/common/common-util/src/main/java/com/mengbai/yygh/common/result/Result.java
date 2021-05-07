@@ -11,8 +11,8 @@ import lombok.Data;
 @ApiModel(value = "全局统一返回结果")
 public class Result<T> {
 
-	private static final String SUCCESS = "SUCCESS";
-	private static final String FAILED = "FAILED";
+	public static final String SUCCESS = "SUCCESS";
+	public static final String FAILED = "FAILED";
 
 	@ApiModelProperty(value = "返回码")
 	private Integer code;

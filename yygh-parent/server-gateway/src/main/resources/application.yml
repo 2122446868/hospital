@@ -1,6 +1,6 @@
 #服务端口
 server:
-  port: 8080
+  port: 18080
 spring:
   # 服务名
   application:
@@ -29,20 +29,21 @@ spring:
         uri: lb://service-cmn
         #设置路由断言,代理servicerId为auth-service的/auth/路径
         predicates: Path=/*/cmn/**
-        routes[2]:
-          #设置路由id
-          id: service-user
-          #        设置路由的uri
-          uri: lb://service-user
+      routes[2]:
+        #设置路由id
+        id: service-user
+        #设置路由的uri
+        uri: lb://service-user
           #设置路由断言,代理servicerId为auth-service的/auth/路径
-          predicates: Path=/*/user/**
-          routes[3]:
+        predicates: Path=/*/user/**
+      routes[3]:
             #设置路由id
-            id: service-msm
+        id: service-msm
             #        设置路由的uri
-            uri: lb://service-msm
+        uri: lb://service-msm
             #设置路由断言,代理servicerId为auth-service的/auth/路径
-            predicates: Path=/*/msm/**
+        predicates: Path=/*/msm/**
+
 
 
 

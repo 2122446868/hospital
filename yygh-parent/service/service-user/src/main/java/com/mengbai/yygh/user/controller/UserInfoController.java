@@ -5,6 +5,8 @@ import com.mengbai.yygh.user.service.UserInfoService;
 import com.mengbai.yygh.vo.user.LoginVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,12 +30,18 @@ public class UserInfoController {
 	@Resource
 	private UserInfoService userInfoService;
 
+	private Logger logger = LoggerFactory.getLogger(UserInfoController.class);
 
 	@ApiOperation(value = "会员登录")
 	@PostMapping("login")
 	public Result login(@RequestBody LoginVo loginVo) {
 		Map<String, Object> loginVoMap = userInfoService.login(loginVo);
-		return Result.ok(loginVo);
+		String name = (String) loginVoMap.get("name");
+		String token = (String) loginVoMap.get("token");
+		logger.info("name：" +name);
+		logger.info("token：" +token);
+
+		return Result.ok(loginVoMap);
 
 	}
 }

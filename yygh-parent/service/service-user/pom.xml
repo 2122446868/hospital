@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>untitled</artifactId>
+    <artifactId>service-user</artifactId>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -20,6 +20,17 @@
         <dependency>
             <groupId>com.mengbai.yygh</groupId>
             <artifactId>service_client</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.mengbai.yygh</groupId>
+            <artifactId>service_cmn_client</artifactId>
+            <version>1.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.mengbai.yygh</groupId>
+            <artifactId>service-redis</artifactId>
             <version>1.0</version>
         </dependency>
     </dependencies>
